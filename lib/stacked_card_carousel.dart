@@ -37,6 +37,7 @@ class StackedCardCarousel extends StatefulWidget {
     double spaceBetweenItems = 400,
     bool applyTextScaleFactor = true,
     PageController? pageController,
+    double positionTopOffset = 20.0,
     OnPageChanged? onPageChanged,
   })  : assert(items.isNotEmpty),
         _items = items,
@@ -45,6 +46,7 @@ class StackedCardCarousel extends StatefulWidget {
         _spaceBetweenItems = spaceBetweenItems,
         _applyTextScaleFactor = applyTextScaleFactor,
         _pageController = pageController ?? _defaultPageController,
+        _positionTopOffset = positionTopOffset,
         _onPageChanged = onPageChanged;
 
   final List<Widget> _items;
@@ -52,6 +54,7 @@ class StackedCardCarousel extends StatefulWidget {
   final double _initialOffset;
   final double _spaceBetweenItems;
   final bool _applyTextScaleFactor;
+  final double _positionTopOffset;
   final PageController _pageController;
   final OnPageChanged? _onPageChanged;
 
@@ -139,7 +142,7 @@ class _StackedCardCarouselState extends State<StackedCardCarousel> {
               scale = 0.95 + (factor * 0.1 / 2);
             }
             return Positioned.fill(
-              top: -position + (20.0 * item.key),
+              top: -position + (widget._positionTopOffset * item.key),
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Wrap(
